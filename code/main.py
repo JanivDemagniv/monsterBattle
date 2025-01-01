@@ -3,6 +3,7 @@ from support import *
 from game_timer import Timer
 from monster import Monster , Opponent
 from random import choice
+from ui import UI
 
 class Game:
     def __init__(self):
@@ -23,6 +24,9 @@ class Game:
         self.all_sprites.add(self.monster)
         monster_name = choice(list(MONSTER_DATA.keys()))
         self.opponent = Opponent(monster_name,self.front_surfs[monster_name],self.all_sprites)
+
+        #ui
+        self.ui = UI(self.monster)
     
     def import_assets(self):
         self.back_surfs = folder_importer('images','back')
@@ -43,11 +47,13 @@ class Game:
             
             #updates
             self.all_sprites.update(dt)
+            self.ui.update()
 
             #draw
             self.display_surface.blit(self.bg_surfs['bg'],(0,0))
             self.draw_monster_floor()
             self.all_sprites.draw(self.display_surface)
+            self.ui.draw()
             pygame.display.update()
 
 if __name__ == '__main__':
