@@ -23,7 +23,7 @@ class Monster(pygame.sprite.Sprite, Creature):
         self.get_data(name)
     
     def __repr__(self):
-        return f'{self.name}: {self.health} / {self.max_health}'
+        return f'{self.name}'
 
 class Opponent(pygame.sprite.Sprite , Creature):
     def __init__(self,name,surf, groups):

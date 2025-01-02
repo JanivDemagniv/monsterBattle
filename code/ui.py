@@ -35,10 +35,11 @@ class UI:
                 self.get_input(self.state,self.monster.abilities[self.attack_index['col'] + self.attack_index['row'] * 2] )
                 self.state = 'general'
         elif self.state == 'Switch':
-            self.switch_index = (self.switch_index + int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])) % len(self.avilabile_monster)
-            if keys[pygame.K_SPACE]:
-                self.get_input(self.state ,self.avilabile_monster[self.switch_index] )
-                self.state = 'general'
+            if self.avilabile_monster:
+                self.switch_index = (self.switch_index + int(keys[pygame.K_DOWN]) - int(keys[pygame.K_UP])) % len(self.avilabile_monster)
+                if keys[pygame.K_SPACE]:
+                    self.get_input(self.state ,self.avilabile_monster[self.switch_index] )
+                    self.state = 'general'
         elif self.state == 'Heal':
             self.get_input('Heal')
             self.state = 'general'
@@ -116,6 +117,7 @@ class UI:
 
     def update(self):
         self.input()
+        self.avilabile_monster = [monster for monster in self.player_monsters if monster != self.monster and monster.health > 0]
     
     def draw(self):
         match self.state:
